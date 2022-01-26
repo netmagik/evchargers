@@ -1,6 +1,8 @@
 import './App.css';
 import React, {useState, useEffect} from 'react';
 
+// const key = '';
+
 function App() {
 
   const [lat, setLat] = useState(null);
@@ -20,17 +22,53 @@ function App() {
         timeout: 10000
       }
     );
+
+    // fetch('/.netlify/functions/evchargers', {
+    //   headers : { 
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json'
+    //   }
+    // })
+    // .then(res => {console.log(res.json())});
   }, []);
 
-  const fetchData = () => {
+  // const fetchData = async () => {
+  //   try {
+  //     const url = 'https://api.m3o.com/v1/evchargers/ReferenceData'
+  //     const res = await fetch(url, {
+  //       method: 'GET', 
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${key}`
+  //       }
+  //     });
+  //     const json = await res.json();
+  //     console.log(json);
+  //     setData('fetch');
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
+  const fetchData = async () => {
     try {
-      
+      const url = 'https://api.m3o.com/v1/evchargers/ReferenceData'
+      const res = await fetch(url, {
+        method: 'GET', 
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${M3O_API_KEY}`
+        }
+      });
+      const json = await res.json();
+      console.log(json);
+      setData('fetch');
     } catch (error) {
       console.log(error)
     }
-    console.log('Fetch');
-    setData('fetch');
   }
+
+
 
   return (
     <div className="App">
@@ -38,7 +76,7 @@ function App() {
       <h2>Latitude: {lat}</h2>
       <h2>Longitude: {long}</h2>
       <button
-        onClick={fetchData}>
+        onClick={fetchData} >
           Fetch Data
       </button>
       

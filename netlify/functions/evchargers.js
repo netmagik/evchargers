@@ -1,4 +1,4 @@
-const { M3O_API_KEY } = process.env;
+const { M3O_API_KEY } = process.env.M3O_API_KEY;
 
 const m3o = require("@m3o/m3o-node");
 
