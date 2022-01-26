@@ -9,7 +9,7 @@ function App() {
 
   const [lat, setLat] = useState(null);
   const [long, setLong] = useState(null);
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState(null);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -53,12 +53,9 @@ function App() {
   // }
 
   const fetchData = async () => {
-    
     fetch('/.netlify/functions/evchargers')
     .then(res => {console.log(res.json())});
   }
-
-
 
 
   return (
