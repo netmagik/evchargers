@@ -1,6 +1,8 @@
 import './App.css';
 import React, {useState, useEffect} from 'react';
 
+//const key = process.env.M3O_API_KEY;
+
 // const key = '';
 
 function App() {
@@ -51,22 +53,11 @@ function App() {
   // }
 
   const fetchData = async () => {
-    try {
-      const url = 'https://api.m3o.com/v1/evchargers/ReferenceData'
-      const res = await fetch(url, {
-        method: 'GET', 
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${M3O_API_KEY}`
-        }
-      });
-      const json = await res.json();
-      console.log(json);
-      setData('fetch');
-    } catch (error) {
-      console.log(error)
-    }
+    
+    fetch('/.netlify/functions/evchargers')
+    .then(res => {console.log(res.json())});
   }
+
 
 
 

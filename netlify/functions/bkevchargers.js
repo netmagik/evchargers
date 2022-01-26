@@ -1,6 +1,6 @@
-const M3O_API_KEY = process.env.M3O_API_KEY;
+const { M3O_API_KEY } = process.env.M3O_API_KEY;
 
-//const m3o = require("@m3o/m3o-node");
+const m3o = require("@m3o/m3o-node");
 
 exports.handler = async function (event, context) {
   if (!M3O_API_KEY) {
@@ -10,22 +10,18 @@ exports.handler = async function (event, context) {
     };
   }
 
- // let body = JSON.parse(event.body);
+  let body = JSON.parse(event.body);
 
   try {
-    const url = 'https://api.m3o.com/v1/evchargers/ReferenceData'
-      const response = await fetch(url, {
-        method: 'GET', 
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${ M3O_API_KEY }`
-        }
-      });
-      const json = await response.json();
-    
+    let response = await new m3o.Client({ token: M3O_API_KEY }).call(
+      // @todo change this to the actual API and endpoint you want to call
+      "evchargers", // the name of the API
+      "ReferenceData", // the name of the endpoint
+      body
+    );
     return {
       statusCode: 200,
-      body: JSON.stringify(json),
+      body: JSON.stringify(response),
     };
   } catch (e) {
     if (e && e.response && e.response.data && e.response.data.Detail) {
